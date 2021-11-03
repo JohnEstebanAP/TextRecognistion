@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "595759583916",
+    "project_id": "reconocimiento-texto-imagenes",
+    "storage_bucket": "reconocimiento-texto-imagenes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595759583916:android:40baeb52d6944ed8eac509",
+        "android_client_info": {
+          "package_name": "com.example.textrecognistion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595759583916-agrkvv4e61jd6og1u5jlf49i3qeqv8tl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.textrecognistion",
+            "certificate_hash": "3f387d7ed1153e611e2fda8b1b32d4f691d5d4a0"
+          }
+        },
+        {
+          "client_id": "595759583916-v3k7l7ukblaihr99c0heg9co93knfu07.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcaNqNGQeiwu7CVn-nmMMnGbCx23p2AL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "595759583916-v3k7l7ukblaihr99c0heg9co93knfu07.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
