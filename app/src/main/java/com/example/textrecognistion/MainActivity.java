@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }catch (ActivityNotFoundException e){
             //display error to the user
+            //HOLA
         }
     }
 
