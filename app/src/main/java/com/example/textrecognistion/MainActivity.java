@@ -13,6 +13,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.mlkit.vision.text.TextRecognition;
+import com.google.mlkit.vision.text.TextRecognizer;
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -29,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
        detectTextBtn=findViewById(R.id.btn_detect_text_image);
        imageView=findViewById(R.id.image_view);
        textView=findViewById(R.id.text_display);
+
+
+        TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+       
 
        CaptureImageBtn.setOnClickListener(new View.OnClickListener() {
            @Override
