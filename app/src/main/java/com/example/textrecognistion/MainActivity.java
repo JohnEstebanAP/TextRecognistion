@@ -22,10 +22,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
+
 import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
@@ -42,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private Integer mImageMaxWidth;
     private Integer mImageMaxHeight;
     private static final int RESULTS_TO_SHOW = 10;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
     }
+
 
     private void processTextRecognitionResult(Text texts){
         List<Text.TextBlock> blocks = texts.getTextBlocks();
@@ -180,4 +182,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
         return bitmap;
     }
+
+
+
+    /*private void detectTextFromImage()
+    {
+        FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(imageBitmap);
+        FirebaseVisionTextDetector firebaseVisionTextDetector= getInstance().getVisionTextDetector();
+        firebaseVisionTextDetector.detectInImage(firebaseVisionImage).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>(){
+
+        })
+    }*/
 }
