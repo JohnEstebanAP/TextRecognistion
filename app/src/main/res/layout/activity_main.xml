@@ -34,10 +34,18 @@
         android:layout_height="wrap_content"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toTopOf="@+id/button_text"
+        app:layout_constraintBottom_toTopOf="@+id/btn_camera"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/btn_camera"
+        android:layout_width="408dp"
+        android:layout_height="43dp"
+        android:text="Tomar Foto"
+        app:layout_constraintBottom_toTopOf="@+id/button_text"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
         android:id="@+id/button_text"

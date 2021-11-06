@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private Integer mImageMaxWidth;
     private Integer mImageMaxHeight;
     private static final int RESULTS_TO_SHOW = 10;
+    Button btnCamara;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mTextButton = findViewById(R.id.button_text);
         mImageView = findViewById(R.id.image_view);
         mSuperposicionGrafica = findViewById(R.id.graphic_overlay);
+        btnCamara = findViewById(R.id.btn_camera);
+
+        btnCamara.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                camara();
+            }
+        });
+
         mTextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +84,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, item);
         dropdown.setAdapter(adapter);
         dropdown.setOnItemSelectedListener(this);
+    }
+
+    private void camara() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager())!=null){
+            startActivityForResult(intent, 1);
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==1 && resultCode==RESULT_OK){
+            Bundle extras = data.getExtras();
+            Bitmap imgBitmap = (Bitmap)  extras.get("data");
+            mImageView.setImageBitmap(imgBitmap);
+        }
     }
 
     private void runTextRecognition(){
