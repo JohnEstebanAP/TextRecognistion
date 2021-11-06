@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         dropdown.setOnItemSelectedListener(this);
     }
 
+
     private void camara() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager())!=null){
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Bundle extras = data.getExtras();
             Bitmap imgBitmap = (Bitmap)  extras.get("data");
             mImageView.setImageBitmap(imgBitmap);
+            onItemSelected(imgBitmap);
         }
     }
 
@@ -166,19 +168,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         targetHeight=maxHeightForPortraidMode;
         return new Pair<>(targetWidth, targetHeight);
     }
-    public void onItemSelected(AdapterView<?> parent, View v, int position, long id){
+    public void onItemSelected(Bitmap imgBitmap){
         mSuperposicionGrafica.clear();
-        switch (position){
-            case 0: mSelectedImage = getBitmapFromAsset(this, "1.jpg"); break;
-            case 1: mSelectedImage = getBitmapFromAsset(this, "2.jpg"); break;
-            case 2: mSelectedImage = getBitmapFromAsset(this, "3.jpg"); break;
-            case 3: mSelectedImage = getBitmapFromAsset(this, "4.jpg"); break;
-            case 4: mSelectedImage = getBitmapFromAsset(this, "5.jpg"); break;
-            case 5: mSelectedImage = getBitmapFromAsset(this, "6.jpg"); break;
-            case 6: mSelectedImage = getBitmapFromAsset(this, "7.jpg"); break;
-            case 7: mSelectedImage = getBitmapFromAsset(this, "8.jpg"); break;
-            case 8: mSelectedImage = getBitmapFromAsset(this, "9.jpg"); break;
-        }
+        //mSelectedImage = getBitmapFromAsset(this, "1.jpg");
+        mSelectedImage = imgBitmap;
         if (mSelectedImage!= null){
             Pair<Integer, Integer> targetedSize = getTargetedWidthHeight();
             int targeteWidth = targetedSize.first;
@@ -191,6 +184,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             mImageView.setImageBitmap(resizedBitmap);
             mSelectedImage = resizedBitmap;
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
     }
 
     @Override
