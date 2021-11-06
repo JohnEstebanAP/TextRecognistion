@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">TextRecognistion</string>
     <string name="capture_image">Capture Image</string>
+    <string name="texto_de_prueba">Texto de prueba</string>
 </resources>

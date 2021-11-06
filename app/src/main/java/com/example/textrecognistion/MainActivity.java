@@ -3,8 +3,6 @@ package com.example.textrecognistion;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -15,23 +13,17 @@ import android.provider.MediaStore;
 import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
-
 import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -45,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private Integer mImageMaxHeight;
     private static final int RESULTS_TO_SHOW = 10;
     Button btnCamara;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mImageView = findViewById(R.id.image_view);
         mSuperposicionGrafica = findViewById(R.id.graphic_overlay);
         btnCamara = findViewById(R.id.btn_camera);
+        textView = findViewById(R.id.textView);
 
         btnCamara.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,22 +62,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 runTextRecognition();
             }
         });
-        Spinner dropdown = findViewById(R.id.spinner);
-        String[] item = new String[]{
-                "Prueba Imagen1 (Texto)",
-                "Prueba Imagen2 (Texto)",
-                "Prueba Imagen3 (Texto)",
-                "Prueba Imagen4 (Texto)",
-                "Prueba Imagen5 (Texto)",
-                "Prueba Imagen6 (Texto)",
-                "Prueba Imagen7 (Texto)",
-                "Prueba Imagen8 (Texto)",
-                "Prueba Imagen9 (Texto)",
-                "Prueba Imagen10 (Texto)"};
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, item);
-        dropdown.setAdapter(adapter);
-        dropdown.setOnItemSelectedListener(this);
     }
 
 
@@ -126,21 +105,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private void processTextRecognitionResult(Text texts){
         List<Text.TextBlock> blocks = texts.getTextBlocks();
-        if (blocks.size()==0) {
-            showToast("No hay texto");
-            return;
-        }
-        mSuperposicionGrafica.clear();
-        for (int i=0; i< blocks.size(); i++){
-            List<Text.Line> lines = blocks.get(i).getLines();
-            for (int j=0; j<lines.size(); j++){
-                List<Text.Element> elements = lines.get(j).getElements();
-                for (int k=0;k<elements.size();k++){
-                    SuperposicionGrafica.Graphic textGraphic=new GraficoTexto(mSuperposicionGrafica, elements.get(k));
-                    mSuperposicionGrafica.add(textGraphic);
-                }
-            }
-        }
+        textView.setText(texts.getText());
     }
 
     private void  showToast(String message){
@@ -159,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
         return mImageMaxHeight;
     }
+
     private Pair<Integer, Integer> getTargetedWidthHeight(){
         int targetWidth;
         int targetHeight;
@@ -170,7 +136,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
     public void onItemSelected(Bitmap imgBitmap){
         mSuperposicionGrafica.clear();
-        //mSelectedImage = getBitmapFromAsset(this, "1.jpg");
         mSelectedImage = imgBitmap;
         if (mSelectedImage!= null){
             Pair<Integer, Integer> targetedSize = getTargetedWidthHeight();
@@ -194,27 +159,5 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onNothingSelected(AdapterView<?> parent){ }
 
-    public static Bitmap getBitmapFromAsset(Context context, String filePath){
-        AssetManager assetManager = context.getAssets();
-        InputStream is;
-        Bitmap bitmap = null;
-        try{
-            is = assetManager.open(filePath);
-            bitmap = BitmapFactory.decodeStream(is);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        return bitmap;
-    }
 
-
-
-    /*private void detectTextFromImage()
-    {
-        FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(imageBitmap);
-        FirebaseVisionTextDetector firebaseVisionTextDetector= getInstance().getVisionTextDetector();
-        firebaseVisionTextDetector.detectInImage(firebaseVisionImage).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>(){
-
-        })
-    }*/
 }
